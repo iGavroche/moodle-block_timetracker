@@ -16,16 +16,16 @@
 
 /**
  *
- * Lang strings for the timestat block.
+ * Lang strings for the timetracker block.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['blockname'] = 'Timestat';
-$string['pluginname'] = 'Timestat';
-$string['blocktitle'] = 'Timestat';
+$string['blockname'] = 'Time Spent on Course';
+$string['pluginname'] = 'Timetracker';
+$string['blocktitle'] = 'Time Tracker';
 $string['nologs'] = 'No logs found!';
 $string['calculate'] = 'Calculate';
 $string['viewreport'] = 'View report';
@@ -44,16 +44,20 @@ $string['inactivitytime'] = 'Inactivity time (big screens) (seconds)';
 $string['inactivitytime_desc'] = 'The time in seconds after which the user is considered inactive. The minimum value is 10 seconds.';
 $string['inactivitytime_small'] = 'Inactivity time (small screens)';
 $string['inactivitytime_small_desc'] = 'The time in seconds after which the user is considered inactive when the user\'s activity is logged in small screens. The minimum value is 10 seconds.';
+$string['totaltime'] = 'Total time';
+$string['totaltime_desc'] = 'The total time spent by the user in the course. The time is calculated as the sum of the reported time and the inactivity time. The minimum value is 10 seconds.';
+$string['totaltime_small'] = 'Total time (small screens)';
+$string['totaltime_small_desc'] = 'The total time spent by the user in the course when the user\'s activity is logged in small screens. The time is calculated as the sum of the reported time and the inactivity time. The minimum value is 10 seconds.';
 $string['loginterval_help'] = 'The time interval in which the user\'s activity is logged.';
 $string['showtimer'] = 'Show timer';
-$string['showtimer_desc'] = 'If enabled, the time counter will be visible to all enrolled users. If disabled, the time counter will be visible only to users with the "block/timestat:viewtimer" capability.';
+$string['showtimer_desc'] = 'If enabled, the time counter will be visible to all enrolled users. If disabled, the time counter will be visible only to users with the "block/timetracker:viewtimer" capability.';
 $string['reportedtime'] = 'Reported time';
 $string['inactivitytime'] = 'Inactivity time';
-$string['timestat:viewreport'] = 'View report';
-$string['timestat:viewtimer'] = 'View timer';
-$string['timestat:addinstance'] = 'Add a new Timestat block';
-$string['timestat:view'] = 'View the Timestat block';
-$string['privacy:metadata:block_timestat'] = 'Timestat Block';
-$string['privacy:metadata:block_timestat'] = 'Information about the time spent by the user in a specific log entry.';
-$string['privacy:metadata:block_timestat:log_id'] = 'The ID of the user related to the log entry.';
-$string['privacy:metadata:block_timestat:timespent'] = 'The time spent by the user in the log entry.';
+$string['timetracker:viewreport'] = 'View report';
+$string['timetracker:viewtimer'] = 'View timer';
+$string['timetracker:addinstance'] = 'Add a new Timetracker block';
+$string['timetracker:view'] = 'View the Timetracker block';
+$string['privacy:metadata:block_timetracker'] = 'Timetracker Block';
+$string['privacy:metadata:block_timetracker'] = 'Information about the time spent by the user in a specific log entry.';
+$string['privacy:metadata:block_timetracker:log_id'] = 'The ID of the user related to the log entry.';
+$string['privacy:metadata:block_timetracker:timespent'] = 'The time spent by the user in the log entry.';

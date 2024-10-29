@@ -17,7 +17,7 @@
 /**
  * Online users block settings.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,20 +25,20 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_configcheckbox('block_timestat/showtimer',
-        get_string('showtimer', 'block_timestat'),
-        get_string('showtimer_desc', 'block_timestat'), 0));
+    $settings->add(new admin_setting_configcheckbox('block_timetracker/showtimer',
+        get_string('showtimer', 'block_timetracker'),
+        get_string('showtimer_desc', 'block_timetracker'), 0));
 
-    $settings->add(new admin_setting_configtext('block_timestat/loginterval',
-        get_string('loginterval', 'block_timestat'),
-        get_string('loginterval_desc', 'block_timestat'), 15, PARAM_INT));
+    $settings->add(new admin_setting_configtext('block_timetracker/loginterval',
+        get_string('loginterval', 'block_timetracker'),
+        get_string('loginterval_desc', 'block_timetracker'), 15, PARAM_INT));
 
-    $settings->add(new admin_setting_configtext('block_timestat/inactivitytime',
-        get_string('inactivitytime', 'block_timestat'),
-        get_string('inactivitytime_desc', 'block_timestat'), 30, PARAM_INT));
+    $settings->add(new admin_setting_configtext('block_timetracker/inactivitytime',
+        get_string('inactivitytime', 'block_timetracker'),
+        get_string('inactivitytime_desc', 'block_timetracker'), 30, PARAM_INT));
 
-    $settings->add(new admin_setting_configtext('block_timestat/inactivitytime_small',
-        get_string('inactivitytime_small', 'block_timestat'),
-        get_string('inactivitytime_small_desc', 'block_timestat'), 30, PARAM_INT));
+    $settings->add(new admin_setting_configtext('block_timetracker/inactivitytime_small',
+        get_string('inactivitytime_small', 'block_timetracker'),
+        get_string('inactivitytime_small_desc', 'block_timetracker'), 30, PARAM_INT));
 }
 

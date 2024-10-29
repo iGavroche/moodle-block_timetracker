@@ -15,24 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Contains the class for the timestat block.
+ * Contains the class for the timetracker block.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/blocks/timestat/locallib.php');
+require_once($CFG->dirroot . '/blocks/timetracker/locallib.php');
 
 /**
- * Timestat block class.
+ * Timetracker block class.
  *
- * @package    block_timestat
- * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał
+ * @package    block_timetracker
+ * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał; 2024 iGavroche
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_timestat extends block_base {
+class block_timetracker extends block_base {
 
     /**
      * Initialises the block.
@@ -41,7 +41,7 @@ class block_timestat extends block_base {
      * @throws coding_exception
      */
     public function init() {
-        $this->title = get_string('blocktitle', 'block_timestat');
+        $this->title = get_string('blocktitle', 'block_timetracker');
     }
 
     /**
@@ -52,25 +52,37 @@ class block_timestat extends block_base {
      * @throws moodle_exception
      */
     public function get_content() {
-        global $COURSE, $OUTPUT;
+        global $COURSE, $OUTPUT, $USER, $DB;
         if ($this->content !== null) {
             return $this->content;
         }
         $contextid = $this->page->cm ? $this->page->cm->context->id : $this->page->context->id;
         $context = context_block::instance($this->instance->id);
         $userisenrolled = is_enrolled($context);
-        $config = get_config('block_timestat');
+        $config = get_config('block_timetracker');
         $this->content = new stdClass();
         $this->content->text = '';
-        $canseetimer = has_capability('block/timestat:viewtimer', $context);
+        $canseetimer = has_capability('block/timetracker:viewtimer', $context);
+
+        $total_time = 0;
+        if ($userisenrolled) {
+            $logs = block_timetracker_build_logs_array($COURSE, $USER->id);
+            foreach ($logs['logs'] as $log) {
+                if ($log->userid == $USER->id) {
+                    $total_time += $log->timespent;
+                }
+            }
+        }
+
         $data = new stdClass();
         $data->courseid = $COURSE->id;
         $data->shouldseetimer = $userisenrolled && ($canseetimer || ($config->showtimer ?? false));
-        $data->shouldseereport = has_capability('block/timestat:viewreport', $context);
-        $this->content->text = $OUTPUT->render_from_template('block_timestat/main', $data);
+        $data->shouldseereport = has_capability('block/timetracker:viewreport', $context);
+        $data->formatted_time = format_time($total_time); // Add formatted time to data
+        $this->content->text = $OUTPUT->render_from_template('block_timetracker/main', $data);
         // If the user is not enrolled in the course, we don't want to count the time.
         if ($userisenrolled) {
-            $this->page->requires->js_call_amd('block_timestat/event_emiiter', 'init', [$contextid, $config]);
+            $this->page->requires->js_call_amd('block_timetracker/event_emiiter', 'init', [$contextid, $config]);
         }
         return $this->content;
     }
@@ -100,7 +112,7 @@ class block_timestat extends block_base {
     }
 
     public function get_config_for_external() {
-        $configs = get_config('block_timestat');
+        $configs = get_config('block_timetracker');
         return (object)[
             'instance' => new stdClass(),
             'plugin' => $configs,

@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file contains functions used by the block timestat
+ * This file contains functions used by the block timetracker
  *
  * This files lists the functions that are used during the log report generation.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -54,7 +54,7 @@ if (!defined('REPORT_LOG_MAX_DISPLAY')) {
  * @uses CONTEXT_COURSE
  * @uses SEPARATEGROUPS
  */
-function block_timestat_report_log_print_mnet_selector_form($hostid, $course, $selecteduser = 0, $selecteddatefrom = 'today',
+function block_timetracker_report_log_print_mnet_selector_form($hostid, $course, $selecteduser = 0, $selecteddatefrom = 'today',
         $selecteddateto = 'today', $modid = 0, $selectedgroup = -1, $showcourses = 0,
         $showusers = 0, $logformat = 'showashtml'): void {
 
@@ -280,7 +280,7 @@ function block_timestat_report_log_print_mnet_selector_form($hostid, $course, $s
         }
     }
 
-    echo "<form class=\"logselectform\" action=\"$CFG->wwwroot/blocks/timestat/index.php\" method=\"get\">\n";
+    echo "<form class=\"logselectform\" action=\"$CFG->wwwroot/blocks/timetracker/index.php\" method=\"get\">\n";
     echo "<div>\n"; // Invisible fieldset here breaks wrapping.
     echo "<input type=\"hidden\" name=\"chooselog\" value=\"1\" />\n";
     echo "<input type=\"hidden\" name=\"showusers\" value=\"$showusers\" />\n";
@@ -297,7 +297,7 @@ function block_timestat_report_log_print_mnet_selector_form($hostid, $course, $s
         echo html_writer::select($courses, "id", $course->id, false);
         if (has_capability('report/log:view', $sitecontext)) {
             $a = new stdClass();
-            $a->url = "$CFG->wwwroot/blocks/timestat/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
+            $a->url = "$CFG->wwwroot/blocks/timetracker/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
                     . "&id=$course->id&date=$selecteddate&modid=$selectedactivity&showcourses=1&showusers=$showusers";
             print_string('logtoomanycourses', 'moodle', $a);
         }
@@ -329,7 +329,7 @@ function block_timestat_report_log_print_mnet_selector_form($hostid, $course, $s
         echo html_writer::label(get_string('participantslist'), 'menuuser', false, ['class' => 'accesshide']);
         echo html_writer::select($users, "user", $selecteduser, false);
         $a = new stdClass();
-        $a->url = "$CFG->wwwroot/blocks/timestat/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
+        $a->url = "$CFG->wwwroot/blocks/timetracker/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
                 . "&id=$course->id&date=$selecteddate&modid=$selectedactivity&showusers=1&showcourses=$showcourses";
         print_string('logtoomanyusers', 'moodle', $a);
     }
@@ -342,7 +342,7 @@ function block_timestat_report_log_print_mnet_selector_form($hostid, $course, $s
             'downloadasexcel' => get_string('downloadexcel')];
     echo html_writer::label(get_string('logsformat', 'report_log'), 'menulogformat', false, ['class' => 'accesshide']);
     echo html_writer::select($logformats, 'logformat', $logformat, false);
-    $mform = new block_timestat_calendar();
+    $mform = new block_timetracker_calendar();
     $mform->set_data(['datefrom' => $selecteddatefrom]);
     $mform->set_data(['dateto' => $selecteddateto]);
     $mform->display();
@@ -368,7 +368,7 @@ function block_timestat_report_log_print_mnet_selector_form($hostid, $course, $s
  * @uses CONTEXT_COURSE
  * @uses SEPARATEGROUPS
  */
-function block_timestat_report_log_print_selector_form($course, $selecteduser = 0, $selecteddate = 'today', $modid = 0,
+function block_timetracker_report_log_print_selector_form($course, $selecteduser = 0, $selecteddate = 'today', $modid = 0,
         $selectedgroup = -1, $showcourses = 0, $showusers = 0,
         $logformat = 'showashtml') {
 
@@ -524,7 +524,7 @@ function block_timestat_report_log_print_selector_form($course, $selecteduser = 
         $selecteddate = $today;
     }
 
-    echo "<form class=\"logselectform\" action=\"$CFG->wwwroot/blocks/timestat/index.php\" method=\"get\">\n";
+    echo "<form class=\"logselectform\" action=\"$CFG->wwwroot/blocks/timetracker/index.php\" method=\"get\">\n";
     echo "<div>\n";
     echo "<input type=\"hidden\" name=\"chooselog\" value=\"1\" />\n";
     echo "<input type=\"hidden\" name=\"showusers\" value=\"$showusers\" />\n";
@@ -540,7 +540,7 @@ function block_timestat_report_log_print_selector_form($course, $selecteduser = 
         echo html_writer::select($courses, "id", $course->id, false);
         if (has_capability('report/log:view', $sitecontext)) {
             $a = new stdClass();
-            $a->url = "$CFG->wwwroot/blocks/timestat/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
+            $a->url = "$CFG->wwwroot/blocks/timetracker/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
                     . "&id=$course->id&date=$selecteddate&modid=$selectedactivity&showcourses=1&showusers=$showusers";
             print_string('logtoomanycourses', 'moodle', $a);
         }
@@ -572,7 +572,7 @@ function block_timestat_report_log_print_selector_form($course, $selecteduser = 
         echo html_writer::label(get_string('selctauser'), 'menuuser', false, ['class' => 'accesshide']);
         echo html_writer::select($users, "user", $selecteduser, false);
         $a = new stdClass();
-        $a->url = "$CFG->wwwroot/blocks/timestat/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
+        $a->url = "$CFG->wwwroot/blocks/timetracker/index.php?chooselog=0&group=$selectedgroup&user=$selecteduser"
                 . "&id=$course->id&date=$selecteddate&modid=$selectedactivity&showusers=1&showcourses=$showcourses";
         print_string('logtoomanyusers', 'moodle', $a);
     }
@@ -586,7 +586,7 @@ function block_timestat_report_log_print_selector_form($course, $selecteduser = 
 
     echo html_writer::label(get_string('logsformat', 'report_log'), 'menulogformat', false, ['class' => 'accesshide']);
     echo html_writer::select($logformats, 'logformat', $logformat, false);
-    $mform = new block_timestat_calendar();
+    $mform = new block_timetracker_calendar();
     $mform->set_data(['datefrom' => $course->startdate]);
     $mform->display();
     echo '</div>';
@@ -610,14 +610,14 @@ function block_timestat_report_log_print_selector_form($course, $selecteduser = 
  * @param int $groupid
  * @throws coding_exception
  */
-function block_timestat_print_log($course, $user = 0, $datefrom = 0, $dateto = 0, $order = "l.timecreated ASC", $page = 0,
+function block_timetracker_print_log($course, $user = 0, $datefrom = 0, $dateto = 0, $order = "l.timecreated ASC", $page = 0,
         $perpage = 100, $url = "", $modname = "", $modid = 0, $modaction = "", $groupid = 0) {
 
     global $CFG, $OUTPUT;
 
-    if (!$logs = block_timestat_build_logs_array($course, $user, $datefrom, $dateto, $order, $page * $perpage, $perpage,
+    if (!$logs = block_timetracker_build_logs_array($course, $user, $datefrom, $dateto, $order, $page * $perpage, $perpage,
             $modname, $modid, $modaction, $groupid)) {
-        echo $OUTPUT->notification(get_string('nologs', 'block_timestat'));
+        echo $OUTPUT->notification(get_string('nologs', 'block_timetracker'));
         echo $OUTPUT->footer();
         exit;
     }
@@ -685,7 +685,7 @@ function block_timestat_print_log($course, $user = 0, $datefrom = 0, $dateto = 0
                 fullname($log, has_capability('moodle/site:viewfullnames',
                         context_course::instance($course->id))));
 
-        $row[] = block_timestat_seconds_to_stringtime($log->{'timespent'});
+        $row[] = block_timetracker_seconds_to_stringtime($log->{'timespent'});
         $table->data[] = $row;
     }
 
@@ -710,7 +710,7 @@ function block_timestat_print_log($course, $user = 0, $datefrom = 0, $dateto = 0
  * @return array
  * @throws coding_exception
  */
-function block_timestat_build_logs_array($course, $user = 0, $datefrom = 0, $dateto = 0, $order = "l.timecreated ASC",
+function block_timetracker_build_logs_array($course, $user = 0, $datefrom = 0, $dateto = 0, $order = "l.timecreated ASC",
         $limitfrom = 0, $limitnum = 0,
         $modname = "", $modid = 0, $modaction = "", $groupid = 0): array {
 
@@ -795,7 +795,7 @@ function block_timestat_build_logs_array($course, $user = 0, $datefrom = 0, $dat
     $selector = implode(' AND ', $joins);
     $totalcount = 0;  // Initialise.
     $result = [];
-    $result['logs'] = block_timestat_get_logs($selector, $totalcount, $params, $limitfrom, $limitnum);
+    $result['logs'] = block_timetracker_get_logs($selector, $totalcount, $params, $limitfrom, $limitnum);
     $result['totalcount'] = $totalcount;
     return $result;
 }
@@ -810,7 +810,7 @@ function block_timestat_build_logs_array($course, $user = 0, $datefrom = 0, $dat
  * @param int $limitnum return a subset comprising this many records (optional, required if $limitfrom is set)
  * @return array
  */
-function block_timestat_get_logs($select, &$totalcount, array $params = null, $limitfrom = 0, $limitnum = 0) {
+function block_timetracker_get_logs($select, &$totalcount, array $params = null, $limitfrom = 0, $limitnum = 0) {
 
     global $DB, $CFG;
 
@@ -846,20 +846,20 @@ function block_timestat_get_logs($select, &$totalcount, array $params = null, $l
         $sql = "
         SELECT DISTINCT l.userid, $allusernamefields,
         (SELECT SUM(f2.timespent) FROM {logstore_standard_log} l2
-        JOIN {block_timestat} f2 ON f2.log_id = l2.id WHERE l2.userid =  l.userid $select)
+        JOIN {block_timetracker} f2 ON f2.log_id = l2.id WHERE l2.userid =  l.userid $select)
         as timespent
         FROM  {logstore_standard_log}  l
-        JOIN {block_timestat} f2 ON f2.log_id = l.id
+        JOIN {block_timetracker} f2 ON f2.log_id = l.id
         LEFT JOIN {user} u ON l.userid = u.id
         WHERE
         (SELECT SUM(f2.timespent) FROM {logstore_standard_log} l2
-        JOIN {block_timestat} f2 ON f2.log_id = l2.id WHERE l2.userid =  l.userid
+        JOIN {block_timetracker} f2 ON f2.log_id = l2.id WHERE l2.userid =  l.userid
         ) > 0 $useridselect ORDER BY timespent DESC
         ";
     } else {
         $sql = "SELECT l.userid, SUM(bt.timespent) as timespent, $allusernamefields
         FROM {logstore_standard_log} l
-        LEFT JOIN {user} u ON l.userid = u.id RIGHT JOIN {block_timestat} bt ON l.id = bt.log_id
+        LEFT JOIN {user} u ON l.userid = u.id RIGHT JOIN {block_timetracker} bt ON l.id = bt.log_id
         $select
         GROUP BY l.userid ORDER BY timespent DESC
         ";
@@ -876,21 +876,21 @@ require_once($CFG->libdir . '/formslib.php');
  *
  * Form to select start and end date ranges and session time.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2010 onwards Barbara Dębska, Łukasz Musiał, Łukasz Sanokowski
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_timestat_calendar extends moodleform {
+class block_timetracker_calendar extends moodleform {
 
     /**
      * Define the form - called by parent constructor
      */
     public function definition() {
         $mform = &$this->_form;
-        $mform->addElement('date_time_selector', 'datefrom', get_string('start', 'block_timestat'));
-        $mform->addElement('date_time_selector', 'dateto', get_string('end', 'block_timestat'));
+        $mform->addElement('date_time_selector', 'datefrom', get_string('start', 'block_timetracker'));
+        $mform->addElement('date_time_selector', 'dateto', get_string('end', 'block_timetracker'));
         // Buttons.
-        $this->add_action_buttons(false, get_string('calculate', 'block_timestat'));
+        $this->add_action_buttons(false, get_string('calculate', 'block_timetracker'));
     }
 }
 
@@ -908,13 +908,13 @@ class block_timestat_calendar extends moodleform {
  * @param string $order
  * @throws coding_exception
  */
-function block_timestat_print_log_xls($course, $user, $datefrom, $dateto, $modname, $modid, $modaction, $groupid, $order = 'l.time DESC') {
+function block_timetracker_print_log_xls($course, $user, $datefrom, $dateto, $modname, $modid, $modaction, $groupid, $order = 'l.time DESC') {
 
     global $CFG;
 
     require_once("$CFG->libdir/excellib.class.php");
 
-    if (!$logs = block_timestat_build_logs_array($course, $user, $datefrom, $dateto, $order, '', '',
+    if (!$logs = block_timetracker_build_logs_array($course, $user, $datefrom, $dateto, $order, '', '',
             $modname, $modid, $modaction, $groupid)) {
         return false;
     }
@@ -983,7 +983,7 @@ function block_timestat_print_log_xls($course, $user, $datefrom, $dateto, $modna
 
         $fullname = $log->firstname . " " . $log->lastname;
         $myxls->write($row, 0, $fullname, '');
-        $myxls->write($row, 1, block_timestat_seconds_to_stringtime($log->{'timespent'}), '');
+        $myxls->write($row, 1, block_timetracker_seconds_to_stringtime($log->{'timespent'}), '');
         $row++;
     }
     $workbook->close();
@@ -997,7 +997,7 @@ function block_timestat_print_log_xls($course, $user, $datefrom, $dateto, $modna
  * @return string
  * @throws dml_exception|coding_exception
  */
-function block_timestat_seconds_to_stringtime($seconds) {
+function block_timetracker_seconds_to_stringtime($seconds) {
     $conmin = 60;
     $conhour = $conmin * 60;
     $conday = $conhour * 24;
@@ -1011,15 +1011,15 @@ function block_timestat_seconds_to_stringtime($seconds) {
 
     $str = '';
     if ($tempday != 0) {
-        $str = $str . $tempday . get_string('days', 'block_timestat');
+        $str = $str . $tempday . get_string('days', 'block_timetracker');
     }
     if ($temphour != 0) {
-        $str = $str . $temphour . get_string('hours', 'block_timestat');
+        $str = $str . $temphour . get_string('hours', 'block_timetracker');
     }
     if ($tempmin != 0) {
-        $str = $str . $tempmin . get_string('minuts', 'block_timestat');
+        $str = $str . $tempmin . get_string('minuts', 'block_timetracker');
     }
-    return $str . $seconds . get_string('seconds', 'block_timestat');
+    return $str . $seconds . get_string('seconds', 'block_timetracker');
 }
 
 /**
@@ -1028,7 +1028,7 @@ function block_timestat_seconds_to_stringtime($seconds) {
  * @param int $contextid
  * @throws dml_exception
  */
-function block_timestat_get_user_last_log_by_contextid(int $contextid): stdClass {
+function block_timetracker_get_user_last_log_by_contextid(int $contextid): stdClass {
     global $DB, $USER;
     $logs = $DB->get_records('logstore_standard_log',
             ['contextid' => $contextid, 'userid' => $USER->id], 'timecreated DESC', '*', 0, 1);

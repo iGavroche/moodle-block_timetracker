@@ -16,16 +16,16 @@
 
 /**
  *
- * Capabilities for the timestat block.
+ * Capabilities for the timetracker block.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
-    'block/timestat:view' => [
+    'block/timetracker:view' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => [
@@ -38,7 +38,7 @@ $capabilities = [
             'manager' => CAP_ALLOW,
         ],
     ],
-    'block/timestat:viewreport' => [
+    'block/timetracker:viewreport' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => [
@@ -51,7 +51,7 @@ $capabilities = [
             'manager' => CAP_ALLOW,
         ],
     ],
-    'block/timestat:viewtimer' => [
+    'block/timetracker:viewtimer' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => [
@@ -64,7 +64,7 @@ $capabilities = [
             'manager' => CAP_ALLOW,
         ],
     ],
-    'block/timestat:addinstance' => [
+    'block/timetracker:addinstance' => [
         'riskbitmask' => RISK_SPAM | RISK_XSS,
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,

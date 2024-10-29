@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Tool Block Timestat webservice definitions.
+ * Tool Block Timetracker webservice definitions.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2022 Jorge C.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-use block_timestat\external;
+use block_timetracker\external;
 
 defined('MOODLE_INTERNAL') || die();
 
 $functions = [
-        'block_timestat_update_register' => [
+        'block_timetracker_update_register' => [
                 'classname' => external::class,
                 'methodname' => 'update_register',
                 'description' => '',

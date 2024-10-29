@@ -16,16 +16,16 @@
 
 /**
  *
- * Lang strings for the timestat block.
+ * Lang strings for the timetracker block.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['blockname'] = 'Timestat';
-$string['pluginname'] = 'Timestat';
-$string['blocktitle'] = 'Timestat';
+$string['blockname'] = 'Timetracker';
+$string['pluginname'] = 'Timetracker';
+$string['blocktitle'] = 'Timetracker';
 $string['nologs'] = 'Nie znaleziono żadnych logów!';
 $string['calculate'] = 'Oblicz czas';
 $string['link'] = 'Oblicz czas';

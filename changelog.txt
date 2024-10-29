@@ -1,3 +1,6 @@
+29.10.2024
+Allow users to see their total time spent
+
 11.02.2024
 Refactor Screentime to remove jQuery dependency and add more detailed callbacks
 Enhanced to detect user inactivity.
@@ -16,7 +19,7 @@ Fixed issue "Class 'textlib' has been renamed for the autoloader and is now depr
 
 04.09.2014
 1.2.1
-Time is stored in block_timestat folder now (it was stored in additional field in log table before).
+Time is stored in block_timetracker folder now (it was stored in additional field in log table before).
 Compatiblility with PSQL and MYSQL.
 Many minor fixes.
 
@@ -29,7 +32,7 @@ Problem with change_password.php page, where page is automatically refreshing, f
 31.03.2011
 Problem with blank page after loging fixed.
 Some security improvements.
-All files are now placed inside /block/timestat/ directory (some of them were placed in /moodle/lib/ earlier),
+All files are now placed inside /block/timetracker/ directory (some of them were placed in /moodle/lib/ earlier),
 so installation is simpler.
 
 10.03.2011

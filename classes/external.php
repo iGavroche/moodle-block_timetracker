@@ -17,17 +17,17 @@
 /**
  * This is the external API for this component.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2022 Jorge C. {}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_timestat;
+namespace block_timetracker;
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/externallib.php');
-require_once($CFG->dirroot . '/blocks/timestat/locallib.php');
+require_once($CFG->dirroot . '/blocks/timetracker/locallib.php');
 
 use context;
 use core_course\external\course_summary_exporter;
@@ -81,21 +81,21 @@ class external extends external_api {
                 self::update_register_parameters(),
                 ['timespent' => $timespent, 'contextid' => $contextid]
         );
-        $log = block_timestat_get_user_last_log_by_contextid($contextid);
+        $log = block_timetracker_get_user_last_log_by_contextid($contextid);
         if ($log->userid !== $USER->id) {
             throw new moodle_exception('You are not allowed to update this log');
         }
-        $recordtimestat = $DB->get_record('block_timestat', ['log_id' => $log->id]);
+        $recordtimetracker = $DB->get_record('block_timetracker', ['log_id' => $log->id]);
 
-        if (!$recordtimestat) {
+        if (!$recordtimetracker) {
             $recordbt = new \stdClass();
             $recordbt->log_id = $log->id;
             $recordbt->timespent = $params['timespent'];
-            $DB->insert_record('block_timestat', $recordbt);
+            $DB->insert_record('block_timetracker', $recordbt);
             return [];
         }
-        $recordtimestat->timespent = $params['timespent'];
-        $DB->update_record('block_timestat', $recordtimestat);
+        $recordtimetracker->timespent = $params['timespent'];
+        $DB->update_record('block_timetracker', $recordtimetracker);
         return [];
     }
 

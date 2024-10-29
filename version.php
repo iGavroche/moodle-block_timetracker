@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
  *
- * Version details for the timestat block.
+ * Version details for the timetracker block.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2010 onwards Barbara Dębska, Łukasz Musiał, Łukasz Sanokowski
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2024101400;
-$plugin->component = 'block_timestat';
+$plugin->version = 2024102900;
+$plugin->component = 'block_timetracker';
 $plugin->maturity   = MATURITY_STABLE;
 $plugin->requires = 2021051700;
-$plugin->release = '2.0.1';
+$plugin->release = '2.0.2';

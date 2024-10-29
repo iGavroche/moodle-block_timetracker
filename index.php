@@ -18,7 +18,7 @@
  *
  * Displays different views of the logs.
  *
- * @package    block_timestat
+ * @package    block_timetracker
  * @copyright  2014 Barbara Dębska, Łukasz Sanokowski, Łukasz Musiał
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +27,7 @@ use core\session\manager;
 
 require('../../config.php');
 global $CFG;
-require_once($CFG->dirroot . '/blocks/timestat/locallib.php');
+require_once($CFG->dirroot . '/blocks/timetracker/locallib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 $id = optional_param('id', 0, PARAM_INT);
@@ -129,7 +129,7 @@ if ($chooselog !== 0) {
 if ($logformat !== 'showashtml') {
     $params['logformat'] = $logformat;
 }
-$PAGE->set_url('/block/timestat/index.php', $params);
+$PAGE->set_url('/block/timetracker/index.php', $params);
 $PAGE->set_pagelayout('report');
 
 if ($hostid == $CFG->mnet_localhost_id) {
@@ -146,7 +146,7 @@ require_login($course);
 
 $context = context_course::instance($course->id);
 
-require_capability('block/timestat:viewreport', $context);
+require_capability('block/timetracker:viewreport', $context);
 
 if (!empty($page)) {
     $strlogs = get_string('logs') . ": " . get_string('page', 'report_log', $page + 1);
@@ -180,9 +180,9 @@ if (!empty($chooselog)) {
 
     switch ($logformat) {
         case 'downloadasexcel':
-            if (!block_timestat_print_log_xls($course, $user, $datefrom, $dateto, $modname, $modid,
+            if (!block_timetracker_print_log_xls($course, $user, $datefrom, $dateto, $modname, $modid,
                     $modaction, $group, 'l.time DESC')) {
-                echo $OUTPUT->notification(get_string('nologs', 'block_timestat'));
+                echo $OUTPUT->notification(get_string('nologs', 'block_timetracker'));
                 echo $OUTPUT->footer();
             }
             exit;
@@ -191,27 +191,27 @@ if (!empty($chooselog)) {
                 admin_externalpage_setup('reportlog');
                 $PAGE->set_title($course->shortname . ': ' . $strlogs);
                 $PAGE->set_heading($course->fullname);
-                $PAGE->navbar->add("Timestat");
+                $PAGE->navbar->add("Timetracker");
                 echo $OUTPUT->header();
 
             } else {
                 $PAGE->set_title($course->shortname . ': ' . $strlogs);
                 $PAGE->set_heading($course->fullname);
-                $PAGE->navbar->add("Timestat");
+                $PAGE->navbar->add("Timetracker");
                 echo $OUTPUT->header();
             }
 
             echo $OUTPUT->heading(format_string($course->fullname) . ": $userinfo, $datefrominfo (" . usertimezone() . ")");
-            block_timestat_report_log_print_mnet_selector_form($hostid, $course, $user, $datefrom, $dateto, $modid, $group,
+            block_timetracker_report_log_print_mnet_selector_form($hostid, $course, $user, $datefrom, $dateto, $modid, $group,
                     $showcourses, $showusers, $logformat);
 
             if ($hostid == $CFG->mnet_localhost_id) {
-                block_timestat_print_log($course, $user, $datefrom, $dateto, 'l.timecreated DESC', $page, $perpage,
+                block_timetracker_print_log($course, $user, $datefrom, $dateto, 'l.timecreated DESC', $page, $perpage,
                         "index.php?id=$course->id&amp;chooselog=1&amp;user=$user&amp;datefrom=$datefrom&amp;dateto=$dateto&amp;
                         modid=$modid&amp;modaction=$modaction&amp;group=$group",
                         $modname, $modid, $modaction, $group);
             } else {
-                block_timestat_print_mnet_log(
+                block_timetracker_print_mnet_log(
                         $hostid, $id, $user, $datefrom, $dateto, 'l.timecreated DESC',
                         $page, $perpage, "", $modname, $modid, $modaction, $group
                 );
@@ -231,7 +231,7 @@ if (!empty($chooselog)) {
 
     echo $OUTPUT->heading(get_string('chooselogs') . ':');
 
-    block_timestat_report_log_print_selector_form($course, $user, $datefrom, $modname, $modaction,
+    block_timetracker_report_log_print_selector_form($course, $user, $datefrom, $modname, $modaction,
             $group, $showcourses, $showusers);
 }
 
