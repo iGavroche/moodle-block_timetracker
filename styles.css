@@ -25,3 +25,9 @@
 .info-value {
     font-weight: normal;
 }
+
+.timetracker-plugin-info {
+    font-size: 0.6rem;
+    font-style: italic;
+    margin-top: .5rem;
+}

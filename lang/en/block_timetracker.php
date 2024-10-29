@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['blockname'] = 'Time Spent on Course';
+$string['blockname'] = 'Time Tracker';
 $string['pluginname'] = 'Timetracker';
 $string['blocktitle'] = 'Time Tracker';
 $string['nologs'] = 'No logs found!';
@@ -53,6 +53,7 @@ $string['showtimer'] = 'Show timer';
 $string['showtimer_desc'] = 'If enabled, the time counter will be visible to all enrolled users. If disabled, the time counter will be visible only to users with the "block/timetracker:viewtimer" capability.';
 $string['reportedtime'] = 'Reported time';
 $string['inactivitytime'] = 'Inactivity time';
+$string['plugin_info'] = "This block tracks the time you spend in the course. You need to spend a minimum time of 15 active seconds for the time to be logged.";
 $string['timetracker:viewreport'] = 'View report';
 $string['timetracker:viewtimer'] = 'View timer';
 $string['timetracker:addinstance'] = 'Add a new Timetracker block';
