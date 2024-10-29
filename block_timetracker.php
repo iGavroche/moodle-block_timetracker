@@ -77,6 +77,8 @@ class block_timetracker extends block_base {
         $data = new stdClass();
         $data->courseid = $COURSE->id;
         $data->shouldseetimer = $userisenrolled && ($canseetimer || ($config->showtimer ?? false));
+        $data->loginterval = $config->loginterval ?? 0;
+        $data->plugin_info_string = get_string('plugin_info', 'block_timetracker', $data->loginterval);
         $data->shouldseereport = has_capability('block/timetracker:viewreport', $context);
         $data->formatted_time = format_time($total_time); // Add formatted time to data
         $this->content->text = $OUTPUT->render_from_template('block_timetracker/main', $data);
